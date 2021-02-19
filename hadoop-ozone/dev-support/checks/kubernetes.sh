@@ -21,10 +21,16 @@ REPORT_DIR=${OUTPUT_DIR:-"$DIR/../../../target/kubernetes"}
 OZONE_VERSION=$(mvn help:evaluate -Dexpression=ozone.version -q -DforceStdout)
 DIST_DIR="$DIR/../../dist/target/ozone-$OZONE_VERSION"
 
+echo "$DIST_DIR"
+[[ -e "$DIST_DIR" ]] && echo "exists"
+[[ -d "$DIST_DIR" ]] && echo "directory"
+ls -la "$DIST_DIR"
+
 if [ ! -d "$DIST_DIR" ]; then
     echo "Distribution dir is missing. Doing a full build"
-    "$DIR/build.sh" -Pcoverage
+    echo "$DIR/build.sh" -Pcoverage
 fi
+exit
 
 mkdir -p "$REPORT_DIR"
 
